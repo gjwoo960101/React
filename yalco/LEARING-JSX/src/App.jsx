@@ -1,5 +1,6 @@
 import './App.css'
-
+import ButtonA from './ButtonA'
+import ButtonB from './ButtonB'
 
 function ObejctArrayExpressions(){
   const user = {
@@ -49,6 +50,60 @@ function FunctionExpressions(){
   )
 }
 
+function BooleanExpressions(){
+  const test = true;
+  // 앞에 값이 참이면 뒤에 값은 그대로 반환됨
+  const truthy = <>{test && <h1>it's truthy</h1>}</>
+
+  return (
+    <div>
+      {test ? (
+        <>
+          <h2>welcome true</h2>
+          <p>Hi - Hi - Hi</p>
+        </>
+      ) : (
+        <>
+          <h2>welcome false</h2>
+          <p>Bye - Bye - Bye</p>
+        </>
+      )}
+      truthy : {truthy}
+    </div>
+  )
+}
+
+// 리스트 랜더링
+// 요소에 key값을 넣어주는 이유는 리액트가 리스트의 변동사항을 빠르게 파악하기위함이다.
+function ListLanderings(){
+  const fruits = ['apple', 'banana', 'orange']
+  const numbers = [1, 2, 3, 4, 5]
+  return(
+    <>
+      <ul>
+        {fruits.map((item,index)=>{
+          return <li key={index}>{item}</li>
+        })}
+        {
+          numbers.filter(n => n % 2 === 0).map((item,index)=>{
+            return <li key={index}>{item}</li>  
+          })
+        }
+      </ul>
+    </>
+  )
+}
+
+// contentEditable 속성은 사용자가 텍스트를 입력할 수 있게 해준다.
+function InputExpressions(){
+  return (
+    <>
+      <input type='text' spellCheck={true}></input>
+      <div contentEditable={true} suppressContentEditableWarning={true} spellCheck={true}>여기에 텍스트를 입력해보삼</div> 
+    </>
+  )
+}
+
 
 function App() {
 
@@ -62,6 +117,17 @@ function App() {
       <BasicExpressions></BasicExpressions>
       <ObejctArrayExpressions></ObejctArrayExpressions>
       <FunctionExpressions></FunctionExpressions>
+      <BooleanExpressions></BooleanExpressions>
+      <ListLanderings></ListLanderings>
+      <InputExpressions></InputExpressions>
+
+      {/* 아래의 버튼들은 css Modules를 사용하였다.
+       여러개의 css의 동일한 class명이 잇을경우 덮어씌워지는데, 
+       이때 cssModule을 사용하게되면 각각의 css파일에서 동일한 class명을 사용해도 충돌이 발생하지 않는다.
+       ex) style.button 으로 사용하게되면 실제로 console.log(style)을 찍어보면 {button: "ButtonA_button__1J9Z-"} 이런식으로 나온다.
+      */}
+      <ButtonA></ButtonA>
+      <ButtonB></ButtonB>
     </>
   )
 }
